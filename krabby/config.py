@@ -4,24 +4,16 @@ import logging
 import importlib
 
 logger = None
-tasklogger = None
 conf = None
 BASEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ==============================================
 
 
 class Config:
-    PROJECT = 'trackivt'
-    PROJECT_USER = 'ivtapp'
+    PROJECT = 'krabby'
+    PROJECT_USER = 'krabs'
     BASEDIR = os.path.abspath(os.path.dirname(__file__))
     LOGPATH = os.path.join(os.path.dirname(BASEDIR), 'logs')
-
-#     TASKROOT = os.path.join('/opt', 'infinidat')
-    TASK_POLL_INTERVAL = 1
-    TASK_WORKERS = 3
-    TASK_LOG_ROOT = os.path.join(LOGPATH, 'task')
-    TASK_PKG_ROOT = 'srv.task'
-    TASK_FINISH_TIMEOUT = 10
 
     API_URL_PREFIX = '/api/v1.0'
     SECRET_KEY = os.environ.get('SECRET_KEY') \

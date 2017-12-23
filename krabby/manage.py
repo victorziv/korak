@@ -8,7 +8,7 @@ Configurator.set_logging(name=CONFIG_KEY, console_logging=True)
 
 from config import logger  # noqa
 
-from trackivt import create_app  # noqa
+from krabby import create_app  # noqa
 app = create_app(CONFIG_KEY)
 app_ctx = app.app_context()
 app_ctx.push()
