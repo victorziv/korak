@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Sign In To IVT Tracker</title>
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', r=82845) }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome-4.7.0.min.css') }}">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7.dist/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.3.7.dist/bootstrap-custom-theme.css') }}">
+
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}" type="text/css">
+    </head>
+
+    <body>
+        <div id="wrap">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-xsm-12 col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+                        <div class="page-header">
+                            <div class="login_page_header">
+                                <img src="{{ url_for('static', filename='images/infinidat-ivt-logo.png') }}" alt="IVT">
+                                <h1>Sign In To IVT Tracker</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-xsm-12 col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+                        <a class="btn btn-dark btn-round btn-block" href="{{ url_for('auth.oauth_authorize', provider='google') }}" role="button">
+                            <i class="fa fa-google"></i> Sign In With Your Infinidat Google Account
+                        </a>
+                    </div>
+                </div>
+            </div> <!--/.container-->
+        </div>
+        <!--/.wrap-->
+
+        <div id="footer">
+            <div class="container-fluid">
+                <p class="text-muted credit">&copy; 2017 Infinidat Ltd.</p>
+            </div>
+        </div>
+
+        <script language="javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+        <script language="javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+        <script language="javascript" src="{{ url_for('static', filename='js/bootstrap-3.3.7.dist/bootstrap.min.js') }}"></script>
+    </body>
+</html>

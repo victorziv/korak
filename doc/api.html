@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Documentation &#8212; IVT Dashboard 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="IVT Dashboard tutorial" href="tutorial.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-documentation">
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="app.models.UserModel">
+<em class="property">class </em><code class="descclassname">app.models.</code><code class="descname">UserModel</code><a class="reference internal" href="_modules/app/models.html#UserModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.UserModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>__tablename__ = &#8216;users&#8217;</p>
+<p>id = db.Column(db.Integer, primary_key=True)
+email = db.Column(db.String(64), unique=True, index=True)
+username = db.Column(db.String(64), unique=True, index=True)
+role_id = db.Column(db.Integer, db.ForeignKey(&#8216;roles.id&#8217;))
+password_hash = db.Column(db.String(128))
+name = db.Column(db.String(64))
+location = db.Column(db.String(64))</p>
+<dl class="method">
+<dt id="app.models.UserModel.can">
+<code class="descname">can</code><span class="sig-paren">(</span><em>permissions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models.html#UserModel.can"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.UserModel.can" title="Permalink to this definition">¶</a></dt>
+<dd><p>Figures out whether the current role can do anything
+given a set of permissions to check against.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bool : True or False</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="app.models.UserModel.get_all">
+<em class="property">classmethod </em><code class="descname">get_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models.html#UserModel.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.UserModel.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches all existent users from the DB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of User() objects - an object per fetched user.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="app.models.AnonymousUserModel">
+<em class="property">class </em><code class="descclassname">app.models.</code><code class="descname">AnonymousUserModel</code><a class="reference internal" href="_modules/app/models.html#AnonymousUserModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.AnonymousUserModel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="app.models.AnonymousUserModel.can">
+<code class="descname">can</code><span class="sig-paren">(</span><em>permissions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models.html#AnonymousUserModel.can"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#app.models.AnonymousUserModel.can" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fake permissions check for an anonymous user.</p>
+<p>An anonymous user is not going to have permissions to do anything in our environment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Steps:</th><td class="field-body"><ol class="first arabic simple">
+<li>We are generally repelled by the folks that don&#8217;t care to introduce themselves properly.</li>
+<li>It&#8217;s even worse when they do it on the phone.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Args:</th><td class="field-body"><p class="first">permissions (int): Permissions mask as an integer number.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">bool: Always return False no matter how hard you&#8217;ve been asked to approve.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt>ticket: <a href="https://jira.infinidat.com/browse/IVTS-415" target="_blank">IVTS-415</a></dt>
+<dd></dd>
+<dt>testplan: <a href="https://jira.infinidat.com/browse/IVTS-414" target="_blank">IVTS-414</a></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/infinidat-logo-small.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to IVT Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">IVT Dashboard tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="tutorial.html" title="previous chapter">IVT Dashboard tutorial</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Bobo Mintz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

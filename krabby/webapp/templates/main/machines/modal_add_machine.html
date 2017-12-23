@@ -1,0 +1,40 @@
+<div id="modal_add_machine" class="modal fade modal_ivt" style=”display:none” tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="header_add_machine">Add Infinibox Machine ( fetching details from Jira )</h4>
+            </div>
+
+            <div class="modal-body" id="modal_body_add_machine">
+
+                <form role="form" id="form_add_machine" class="form-horizontal"
+                    data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                    data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                    data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"> 
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label for="machine_serial" class="col-sm-5 control-label">Enter Machine Serial</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="machine_serial" name="machine_serial">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="btn_add_machine_submit" class="btn btn-sm btn-primary">Submit</button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

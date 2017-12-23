@@ -1,0 +1,119 @@
+
+.required .control-label:after {
+  content:" *";
+  color:red;
+}
+
+
+.navbar-nav li a {
+    line-height: 30px;
+}
+
+.navbar-brand {
+    padding-top:12px;
+    padding-bottom:11px;
+}
+
+.side-menu-box {
+    margin-top: 50px;
+}
+
+.result-failed {
+    color: #DF0101;
+}
+
+.result-passed {
+    color: #088A08;
+}
+
+.inprogress {
+    color: #003A00;
+}
+
+
+.header-text {
+    font-size: 1.0em;
+    font-weight: normal;
+}
+
+.login_message {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.adjust_right {
+    text-align: right;
+    padding-right: 0;
+    padding-bottom: 5px;
+    margin-right: 15px;
+}
+
+.form-multiline .form-group {
+    margin-bottom: 15px;
+    margin-right: 30px;
+}
+
+.form-multiline label,
+.form-multiline .form-control {
+    margin-right: 15px;
+}
+
+.dialog_busy{
+    background-image: url("images/busy_big.gif"); 
+}
+
+pre.description {
+    background: transparent;
+    border: 1;
+}
+
+.nav .breadcrumb {
+    margin: 0 7px;
+}
+/*========= jqGrid styling =====================================*/
+
+.ui-jqgrid-btable tr.jqgrow td {
+    font-size:1.1em !important;
+}
+
+.ui-jqgrid.ui-jqgrid-bootstrap {
+    border: 1px solid #003380;
+}
+.ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-caption { }
+.ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-hdiv {
+    font-size: 1.2em !important;
+}
+
+.ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-bdiv {
+    font-size: 1.1em !important;
+}
+
+.ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-caption {
+    background-color: #e6f0ff;
+}
+
+.ui-jqgrid.ui-jqgrid-bootstrap .ui-jqgrid-hdiv {
+    background-color: #a3b2cc;
+}
+
+.ui-jqgrid.ui-jqgrid-bootstrap
+.ui-jqgrid-bdiv
+tr.verification_running {
+    background-color: #defcf2 !important;
+}
+
+.ui-jqgrid.ui-jqgrid-bootstrap
+.ui-jqgrid-bdiv
+tr.verification_onhold {
+    background-color: #e2d9c0 !important;
+}
+
+/* ==================================================== */
+
+.title_left h4 {
+    color: #73879C;
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.471
+}

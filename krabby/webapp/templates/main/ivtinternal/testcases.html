@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+    <div class="row top-buffer">
+        <div class="col-sm-12" id="testcases_grid_container">
+            <table id="testcases_grid" class="summary_report"></table> 
+            <div id="testcases_grid_pager" class="summary_report_pager"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block docready %} 
+    jQuery("li#nav-testcases").addClass("active");
+    {% include  "main/testcases/testcases.js" %}
+{% endblock %} 

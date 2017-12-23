@@ -1,0 +1,41 @@
+from models import db, Basemod
+# =============================
+
+
+class Taskmod(Basemod):
+
+    def __init__(self):
+        self.table = 'task'
+    # ____________________________
+
+    def fetch_session_task(self, sessionid, taskid):
+
+        query = """
+            SELECT
+               vsession.id,
+               vsession.sessionid,
+               vtask.name,
+               vstate.name as state,
+               vsession.result,
+               vmap.execution_order
+            FROM
+                verification_task AS vtask,
+                verification_states AS vstate,
+                verification_session AS vsession,
+                verification_type_task_map AS vmap
+            WHERE vsession.verification_map_id = vmap.id
+            AND vmap.taskid = vtask.id
+            AND vsession.stateid = vstate.id
+            AND vsession.sessionid = %s
+            AND vsession.sessionid = %s
+            AND vsession.id = %s
+
+        """
+        params = (sessionid, taskid)
+
+        db.cursor.execute(query, params)
+        fetch = db.cursor.fetchone()
+        if not fetch:
+            return {}
+        return dict(fetch)
+    # ____________________________

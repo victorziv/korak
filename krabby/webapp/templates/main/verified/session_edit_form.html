@@ -1,0 +1,28 @@
+<form id="session_edit_form">
+
+    <div class="row">
+        <div class="form-group col-md-12 col-sm-12">
+            <label for="session_result" class="col-md-4 col-sm-4 col-xs-12 col-form-label">System Verification Result</label>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <select class="form-control" id="session_result" name="session_result">
+                    <option value="">NA</option>
+                    <option value="passed">Passed</option>
+                    <option value="failed">Failed</option>
+                </select>
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    <div class="row">
+        <div class="form-group col-md-12 col-sm-12">
+            <label for="session_duedate" class="col-md-4 col-sm-4 col-xs-12 col-form-label">System Duedate</label>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <input type="text"
+                    class="form-control"
+                    id="session_duedate"
+                    name="session_duedate"
+                    value={{ session.due }}>
+            </div>
+        </div>
+    </div><!-- /.row -->
+</form>

@@ -1,0 +1,88 @@
+import psycopg2
+from config import logger
+from lib.exceptions import JiraShipmentTicketNotFound
+from models import db, Basemod, Jirahelper, Customermod
+jira = Jirahelper()
+# =============================
+
+
+class Machinemod(Basemod):
+
+    # ____________________________
+
+    def __init__(self):
+        self.table = 'machine'
+    # ____________________________
+
+    def save_machine(self, sn):
+
+        ticket, issue = jira.get_manufacturing_ticket(sn=sn, issue_type="Shipment")
+        if ticket is None:
+            raise JiraShipmentTicketNotFound(
+                "JIRA Shipment ticket not found for machine S/N {}".format(sn))
+
+        machine = {}
+        machine['sn'] = int(sn)
+        machine['system_name'] = "ibox%s" % sn
+        machine['ticket'] = ticket
+        machine['model'] = issue.fields.customfield_12904.value
+        machine['opened_on'] = issue.fields.created
+
+        customer_name = issue.fields.customfield_12725.value
+        customermod = Customermod()
+        machine['customerid'] = customermod.create(attrs={'name': customer_name})
+        return self.insert_machine(machine)
+    # ____________________________
+
+    def insert_machine(self, attrs):
+
+        query_template = """
+            INSERT INTO machine
+            ({})
+            VALUES ({})
+            RETURNING id
+        """
+
+        fields = ', '.join(attrs.keys())
+        logger.info("Fields: {}".format(fields))
+        values_placeholders = ', '.join(['%s' for v in attrs.values()])
+
+        query = query_template.format(fields, values_placeholders)
+        params = tuple(attrs.values())
+
+        logger.info("Mogrify: {}".format(db.cursor.mogrify(query, params)))
+
+        try:
+            db.cursor.execute(query, params)
+            db.conn.commit()
+            fetch = db.cursor.fetchone()
+            logger.debug("FETCH: {}".format(fetch))
+            return fetch['id']
+        except psycopg2.IntegrityError as e:
+            logger.warning(e)
+            db.conn.rollback()
+            return self.read_id_by_sn(attrs['sn'])
+        except psycopg2.ProgrammingError:
+            logger.exception("!ERROR")
+            db.conn.rollback()
+            raise
+        except Exception:
+            db.conn.rollback()
+            raise
+    # ____________________________
+
+    def read_id_by_sn(self, sn):
+        query = """
+            SELECT id
+            FROM machine
+            WHERE sn = %s
+        """
+        params = (sn,)
+
+        logger.info("QUERY: {}".format(db.cursor.mogrify(query, params)))
+        db.cursor.execute(query, params)
+        fetch = db.cursor.fetchone()
+        if fetch is None:
+            return 0
+        return fetch['id']
+    # ____________________________

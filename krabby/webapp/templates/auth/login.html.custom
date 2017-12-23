@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% import "auth/wtf_macros.html" as wtf %}
+
+{% block page_content %}
+
+    <div class="page-header">
+        <h2>Sign In To Krabsnack</h2>
+    </div>
+
+
+    # ----------------------------
+    <form action="" method="post" class="form" role="form">
+
+        <input id="csrf_token" name="csrf_token" type="hidden" value="1493828373##2f2ceef96bfe25667b2f035f54a329fabc740ebc">
+
+        <div class="form-group  has-error required"><label class="control-label" for="email">Email</label>
+            <input class="form-control" id="email" name="email" required type="text" value="momo">
+            <p class="help-block">Invalid email address.</p>
+        </div>
+
+        <div class="form-group  required"><label class="control-label" for="password">Password</label>
+            <input class="form-control" id="password" name="password" required type="password" value="">
+        </div>
+
+        <div class="checkbox">
+            <label>
+            <input id="remember_me" name="remember_me" type="checkbox" value="y"> Keep me logged in
+            </label>
+        </div>
+    </form>
+
+# ----------------------------
+
+    <div class="row top_buffer">
+
+        <!--Hidden IFrame is here for remembering login user names-->
+        <iframe id="remember" class="hidden" src=""></iframe>
+
+        <form class="form-signin" method="post" action="" role="form" id="loginform" name="loginform">
+
+            <div class="row form-group">
+                <label for="username" class="col-md-2 control-label">Email</label>
+                <div class="col-md-4">
+                    <input type="email" class="form-control" name="email" id="email" tabindex="1" 
+                            placeholder="User Email" required autofocus>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label for="password" class="col-md-2 control-label">Password</label>
+                <div class="col-md-4">
+                    <input type="password" class="form-control" id="password" tabindex="2" 
+                            placeholder="Password" required>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <button type="button" class="btn btn-default btn-block" id="btnLogin" tabindex="3">Sign In</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+# ============================
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-4 top_buffer">
+            <p align="center" style="font-size:18px"><strong>OR</strong></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-4 top_buffer">
+            <a class="btn btn-default btn-block" href="{{ url_for('auth.oauth_authorize', provider='google') }}" role="button">
+                <i class="fa fa-google"></i> Sign In With Google
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

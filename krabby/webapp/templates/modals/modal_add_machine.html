@@ -1,0 +1,63 @@
+<!-- Modal -->
+<div class="modal fade" id="modal_add_machine" tabindex="-1" role="dialog" aria-labelledby="modal_add_machine_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal_add_machine_label">Add System To IVT</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body" id="modal_body_add_machine">
+            <form>
+                <div class="row">
+
+                    <div class="form-group col-sm-12">
+                        <label for="machine_serial" class="col-md-4 col-sm-4 col-xs-12 col-form-label">Serial Number</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input type="text"
+                                class="form-control"
+                                id="machine_serial"
+                                name="machine_serial"
+                                aria-describedby="machine_serial"
+                                placeholder="Machine S/N">
+                                <small id="add_machine_help" class="form-text text-muted">The details will be fetched from Jira.</small>
+                        </div>
+                    
+                    </div>
+                </div><!-- /.row -->
+
+                <div class="row">
+
+                    <div class="form-group col-sm-12">
+                        <label for="weekends_duedate" class="col-md-4 col-sm-4 col-xs-12 control-label">Include Weekends in Due Date?</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <div class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        class="flat bios_field"
+                                        id="weekends_duedate"
+                                        name="weekends_duedate">
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.row -->
+
+
+
+
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-dark btn-round" data-dismiss="modal">Cancel</button>
+            <button type="button" id="btn_machine_add_submit" class="btn btn-sm btn-primary btn-round">Submit</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+

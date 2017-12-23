@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+    <div class="row top-buffer">
+        <div class="col-sm-12" id="machines_grid_container">
+            <table id="machines_grid" class="summary_report"></table> 
+            <div id="machines_grid_pager" class="summary_report_pager"></div>
+        </div>
+    </div>
+
+    {% include "main/machines/modal_add_machine.html" %}
+{% endblock %}
+
+{% block docready %} 
+    jQuery("li#nav-machines").addClass("active");
+    {% include  "main/machines/machines.js" %}
+{% endblock %} 
