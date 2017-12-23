@@ -1,5 +1,6 @@
-from models import Basemod
+from webapp.models import Basemod
 # ===========================
+
 
 class Rolemod(Basemod):
 

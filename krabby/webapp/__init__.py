@@ -2,7 +2,7 @@ import os
 import codecs
 from flask import Flask
 from flask_login import LoginManager
-from dba import DBAdmin
+from webapp.dba import DBAdmin
 from config import cnf
 
 login_manager = LoginManager()

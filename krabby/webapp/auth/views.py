@@ -14,7 +14,7 @@ from flask_login import (
 from config import logger
 from . import auth
 from .oauth import OAuthSignIn
-from models import Usermod
+from webapp.models import Usermod
 # __________________________________________
 
 

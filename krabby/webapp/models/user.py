@@ -6,8 +6,9 @@ from flask import url_for, request
 from flask_login import UserMixin
 from flask import current_app as cup
 from config import logger
-from . import db, login_manager
-from models import Basemod, Rolemod, Permission
+from . import (
+    db, login_manager, Basemod, Rolemod, Permission
+)
 rolemod = Rolemod()
 # ===========================
 

@@ -1,4 +1,4 @@
-from flask_script import Manager
+from flask_script import Manager, Shell
 import os
 CONFIG_KEY = os.getenv('KRABBY_CONFIG') or 'default'
 
@@ -8,11 +8,23 @@ Configurator.set_logging(name=CONFIG_KEY, console_logging=True)
 
 from config import logger  # noqa
 
-from webapp import create_app  # noqa
+from webapp import dba, models, create_app  # noqa
 app = create_app(CONFIG_KEY)
 app_ctx = app.app_context()
 app_ctx.push()
 manager = Manager(app)
+# ___________________________________________
+
+
+def make_shell_context():
+    context = {}
+    context.update(dict(app=app, dba=dba, models=models))
+    return context
+# ___________________________________________
+
+
+manager.add_command("shell", Shell(
+    make_context=make_shell_context, use_ipython=True))
 # ___________________________________________
 
 
@@ -80,16 +92,15 @@ def dbreset(configkey):
         return
 
     import inspect
-    from dba import DBAdmin
     confcls = cnf[configkey]
     conf = {}
     for attr in inspect.getmembers(confcls):
         if attr[0].isupper() and not attr[0].startswith('__'):
             conf[attr[0]] = attr[1]
 
-    dba = DBAdmin()
-    dba.resetdb(conf)
-    dba.create_table_changelog(conf)
+    dbi = dba.DBAdmin()
+    dbi.resetdb(conf)
+    dbi.create_table_changelog(conf)
 # ___________________________________________
 
 

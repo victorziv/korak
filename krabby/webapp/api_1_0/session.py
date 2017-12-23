@@ -2,7 +2,7 @@ from flask import jsonify, request, make_response
 from config import logger
 from . import api
 from webapp.lib import reporthelper
-from models import Sessionmod, Usermod
+from webapp.models import Sessionmod, Usermod
 
 sessionmod = Sessionmod()
 usermod = Usermod()

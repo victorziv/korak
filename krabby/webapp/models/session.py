@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2 import sql
 from psycopg2.extensions import AsIs
 from config import logger
-from models import (  # noqa
+from . import (  # noqa
     db,
     Basemod,
     Usermod

@@ -1,15 +1,11 @@
-from flask import current_app as cap
-# from psycopg2 import IntegrityError
 from psycopg2.extensions import AsIs
-from .query_base import QueryBase
+from .base import QueryBase
+from config import logger
 
 # ============================================
 
 
-class QueryCustomer(QueryBase):
-    def __init__(self, db):
-        self.db = db
-    # ____________________________
+class QueryMachines(QueryBase):
 
     def read_one_by_field(self, **kwargs):
 
@@ -19,11 +15,11 @@ class QueryCustomer(QueryBase):
         field = next(kwargs.__iter__())
         query = """
             SELECT
-                machineid,
+                id,
                 name,
                 ticket,
                 owner,
-                created
+                opened_on
             FROM machines
             WHERE %s = %s
         """
@@ -36,48 +32,53 @@ class QueryCustomer(QueryBase):
     # ____________________________
 
     def read(self, **kwargs):
+
+        sort_field = kwargs.get('sort_field', 'opened_on')
+        sort_order = kwargs.get('sort_order', 'asc')
+        limit = kwargs.get('limit', None)
+        offset = kwargs.get('offset', 0)
+
         query = """
             SELECT
-                machineid,
+                id AS machineid,
                 name,
-                ticket,
-                owner,
-                created
+                model,
+                ticket
             FROM machines
-            ORDER BY created DESC
+            ORDER BY %s %s
+            LIMIT %s
+            OFFSET %s
         """
-        params = ()
+        params = (AsIs(sort_field), AsIs(sort_order), AsIs(limit), AsIs(offset))
 
         self.db.cursor.execute(query, params)
         fetch = self.db.cursor.fetchall()
+        logger.debug("Fetch type: {}".format(type(fetch)))
         return fetch
     # ____________________________
 
-    def read_total(self):
+    def read_total(self, **kwargs):
         query = """
-            SELECT count(*) FROM machines
+            SELECT COUNT(*) AS total FROM machines
         """
         params = ()
 
         self.db.cursor.execute(query, params)
         fetch = self.db.cursor.fetchone()
-        return fetch['count']
+        return fetch['total']
     # ____________________________
 
-    def remove_all_records(self):
-        print("XXXXXXXX DB: {}".format(self.db.__dict__))
+    def update_customer(self, machineid, customer_name):
         query = """
-            DELETE FROM machines
+            UPDATE machines
+            SET customerid = (
+                SELECT id FROM customers
+                WHERE name = %s
+            )
+            WHERE machineid = %s
         """
-        params = ()
-        self.db.cursor.execute(query, params)
-        self.db.conn.commit()
-    # ____________________________
 
-    def update(self, update_key_name, update_key_value, update_params):
-        sql_template = "UPDATE machines SET ({}) = %s WHERE {} = %s"
-        query = sql_template.format(', '.join(update_params.keys()), update_key_name)
-        params = (tuple(update_params.values()), update_key_value)
-        cap.logger.debug(self.db.cursor.mogrify(query, params))
+        params = (customer_name, machineid)
+        print(self.db.cursor.mogrify(query, params))
         self.db.cursor.execute(query, params)
         self.db.conn.commit()

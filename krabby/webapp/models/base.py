@@ -1,6 +1,6 @@
 import psycopg2
 from psycopg2 import sql
-from models import db
+from webapp.models import db
 from config import logger
 # =========================================
 
