@@ -1,26 +1,19 @@
-import pprint
 import psycopg2
 from psycopg2 import sql
 from psycopg2.extensions import AsIs
-from config import logger, conf
+from config import logger
 from models import (  # noqa
-    db, Basemod, Jirahelper,
-    Sessiontaskmod, Usermod, Customermod
+    db,
+    Basemod,
+    Usermod
 )
-from lib.exceptions import (
-    JiraIVTTicketNotFound,
-    JiraShipmentTicketNotFound
-)
+
 from lib.helpers import (
     calculate_date_range,
-    convert_to_utc,
     generate_uid,
 )
 
-jira = Jirahelper()
-sessiontaskmod = Sessiontaskmod()
 usermod = Usermod(db)
-customermod = Customermod(db)
 # =============================
 
 
@@ -53,7 +46,6 @@ class Sessionmod(Basemod):
         sessionid = self.save_session(session)
         logger.debug("New verification session ID: %s", sessionid)
 
-        sessiontaskmod.populate_session_tasks(sessionid)
         return sessionid
     # ____________________________
 
@@ -340,50 +332,6 @@ class Sessionmod(Basemod):
         logger.info("Type found: %r", found)
 
         return self.fetch_verification_type_by_name(found)
-    # ____________________________
-
-    def parse_jira_ivt_ticket(self, sn):
-
-        ticket, issue = jira.get_manufacturing_ticket(sn=sn, issue_type="IVT")
-        if ticket is None:
-            raise JiraIVTTicketNotFound("JIRA IVT ticket not found for machine S/N {}".format(self.serial_number))
-
-        logger.debug("Jira ticket: %r", ticket)
-        logger.debug("Jira issue: {}".format(pprint.pformat(issue.__dict__)))
-
-        machine = {}
-        machine['ticket'] = ticket
-
-        ownerid = usermod.save_from_jira_assignee(issue.fields.assignee)
-        machine['ownerid'] = ownerid
-
-        machine['slot'] = issue.fields.environment
-        machine['verification_type'] = self.figure_verification_type(issue.fields.labels)
-        machine['typeid'] = machine['verification_type']['id']
-        machine['created'] = convert_to_utc(issue.fields.created)
-        machine['due'] = issue.fields.duedate
-        logger.debug("MACHINE FETCHED FROM JIRA TICKET: %r", machine)
-        return machine
-
-    # ____________________________
-
-    def parse_jira_shipment_ticket(self, sn):
-
-        ticket, issue = jira.get_manufacturing_ticket(sn=sn, issue_type="Shipment")
-        if ticket is None:
-            raise JiraShipmentTicketNotFound(
-                "JIRA Shipment ticket not found for machine S/N {}".format(sn))
-
-        machine = {}
-        machine['sn'] = int(sn)
-        machine['system_name'] = "%s%s" % (conf['MACHINE_NAME_PREFIX'], sn)
-        machine['shipment_ticket'] = ticket
-        machine['model'] = issue.fields.customfield_12904.value
-
-        customer_name = issue.fields.customfield_12725.value
-        customermod = Customermod()
-        machine['customerid'] = customermod.create(attrs={'name': customer_name})
-        return machine
     # ____________________________
 
     def remove_session(self, sessionid):

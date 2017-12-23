@@ -1,6 +1,6 @@
 #!/bin/bash
-PROJECT = ${PROJECT_NAME:-krabby}
-CONFIG_KEY = ${PROJECT_CONFIG:-development}
+PROJECT=${PROJECT_NAME:-krabby}
+CONFIG_KEY=${PROJECT_CONFIG:-develop}
 curdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOTDIR=$(dirname ${curdir})
 

@@ -3,10 +3,6 @@ from config import logger
 from . import api
 from webapp.lib import reporthelper
 from models import Sessionmod, Usermod
-from lib.exceptions import (
-    JiraShipmentTicketNotFound,
-    JiraIVTTicketNotFound
-)
 
 sessionmod = Sessionmod()
 usermod = Usermod()
@@ -92,33 +88,6 @@ def get_session_owner(username):
 
     except Exception as e:
         logger.exception('!ERROR')
-        return make_response(jsonify({'message': str(e)}), 500)
-# ______________________________________
-
-
-@api.route('/verification/session/', methods=['POST'])
-def add_machine_to_verification_session():
-    try:
-        sn = int(request.get_json()['sn'])
-        logger.debug("SN: %r", sn)
-        duedate_include_weekends = request.get_json()['duedate_include_weekends']
-        logger.debug("Duedate include weekends: %r", duedate_include_weekends)
-
-        if sessionmod.fetch_running_by_sn(sn):
-            msg = 'System with S/N {} is already in verification'.format(sn)
-            return make_response(jsonify({'message': msg}), 409)
-
-        sessionid = sessionmod.create_session(sn, duedate_include_weekends)
-        return jsonify({'sessionid': sessionid})
-
-    except JiraShipmentTicketNotFound as e:
-        return make_response(jsonify({'message': str(e)}), 400)
-
-    except JiraIVTTicketNotFound as e:
-        return make_response(jsonify({'message': str(e)}), 400)
-
-    except Exception as e:
-        logger.exception("!ERROR")
         return make_response(jsonify({'message': str(e)}), 500)
 # ______________________________________
 
