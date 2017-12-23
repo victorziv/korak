@@ -15,7 +15,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(os.path.dirname(__file__)
 def create_app(config_name, logging_name=None):
     dapp = Flask(
         __name__,
-        template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'webapp', 'templates'),
+        template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'),
     )
 
     login_manager.init_app(dapp)

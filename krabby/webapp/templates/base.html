@@ -19,7 +19,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/ui.jqgrid-4.15.0.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/zebra_dialog/zebra_dialog.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/plugins/icheck-1.x/skins/flat/green.css') }}">
-        <link href="{{ url_for('static', filename='css/plugins/bootstrap-dialog.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/plugins/bootstrap-dialog.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/plugins/bootstrap-datetimepicker.min.css') }}">
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}" type="text/css">
@@ -31,21 +32,10 @@
     <body>
         <div id="wrap">
 
-            {% include "navbar.html" %}
+            {% block page_body %}{% endblock %}
+        </div><!--./wrap--> 
 
-            <div class="container-fluid page-content">
-                {% block main_content %}{% endblock %}
-            </div>
-
-        </div>
-        <!--./wrap--> 
-
-        <div id="footer">
-            <div class="container-fluid">
-                <p class="text-muted credit">&copy; 2017 Infinidat Ltd.</p>
-            </div>
-        </div>
-
+        {% block page_footer %}{% endblock %}
 
         <script language="javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
 
@@ -62,7 +52,8 @@
         <script language="javascript" src="{{ url_for('static', filename='js/zebra_dialog.min.js') }}"></script>
         <script language="javascript" src="{{ url_for('static', filename='js/plugins/icheck-1.x/icheck.min.js') }}"></script>
         <script language="javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/plugins/bootstrap-dialog.min.js') }}"></script>
+        <script language="javascript" src="{{ url_for('static', filename='js/plugins/bootstrap-dialog.min.js') }}"></script>
+        <script language="javascript" src="{{ url_for('static', filename='js/plugins/bootstrap-datetimepicker.min.js') }}"></script>
 
         {% block external_script %}{% endblock %} 
 
