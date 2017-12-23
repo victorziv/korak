@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP=trackivt
+APP=${PROJECT_NAME:-krabby}
 curdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOTDIR=$(dirname ${curdir})
 VENVDIR=$ROOTDIR/venv
@@ -18,7 +18,7 @@ install_modules() {
 
 set_environment() {
     echo "export PYTHONPATH=${ROOTDIR}:${ROOTDIR}/${APP}" >> ${VENVDIR}/bin/activate
-    echo "export FLASK_APP=trackivt" >> ${VENVDIR}/bin/activate
+    echo "export FLASK_APP=${APP}" >> ${VENVDIR}/bin/activate
 }
 # _________________________
 
