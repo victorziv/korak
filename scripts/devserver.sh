@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT=trackivt
+PROJECT=krabby
 curdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOTDIR=$(dirname ${curdir})
 
