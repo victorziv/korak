@@ -34,6 +34,9 @@ def create_app(config_name, logging_name=None):
     dappconf.init_app(dapp, logging_name)
     db.init_app(dapp)
 
+    from webapp.errors import bp as errors_bp
+    dapp.register_blueprint(errors_bp)
+
     from webapp.main import main as main_blueprint
     dapp.register_blueprint(main_blueprint)
 
