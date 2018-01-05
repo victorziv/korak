@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP=${PROJECT_NAME:-krabby}
+APP=${PROJECT_NAME:-korak}
 curdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOTDIR=$(dirname ${curdir})
 VENVDIR=$ROOTDIR/venv

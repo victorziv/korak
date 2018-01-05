@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT=krabby
+PROJECT=korak
 curdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOTDIR=$(dirname ${curdir})
 
