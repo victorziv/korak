@@ -10,7 +10,7 @@ BASEDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class Config:
-    PROJECT = 'krabby'
+    PROJECT = 'korak'
     PROJECT_USER = 'krabs'
     BASEDIR = os.path.abspath(os.path.dirname(__file__))
     LOGPATH = os.path.join(os.path.dirname(BASEDIR), 'logs')
@@ -22,7 +22,7 @@ class Config:
         or '%s@infinidat.com' % PROJECT_USER
 
     MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 465
+    MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')

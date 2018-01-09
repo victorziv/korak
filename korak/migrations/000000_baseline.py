@@ -25,12 +25,13 @@ def create_table_user(conn):
             id serial PRIMARY KEY,
             social_id VARCHAR(64),
             username VARCHAR(32) NOT NULL UNIQUE,
+            email VARCHAR(120) NOT NULL UNIQUE,
+            password_hash VARCHAR(128),
             name VARCHAR(64),
             given_name VARCHAR(32),
             family_name VARCHAR(32),
             picture VARCHAR(128),
-            role_id INTEGER REFERENCES role(id),
-            email VARCHAR(64) CONSTRAINT infinidat_email CHECK (email ~* '^[A-Za-z0-9._%%-]+@infinidat.com$')
+            role_id INTEGER REFERENCES role(id)
         );
     """
 
